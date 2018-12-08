@@ -27,7 +27,10 @@
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "postcss": "^7.0.6",
+    "postcss-scss": "^2.0.0",
+    "postcss-react-bender": "^0.1.0"
   },
   "devDependencies": {
     "@types/hoist-non-react-statics": "^3.0.1",
@@ -43,6 +46,9 @@
     "gh-pages": "^1.2.0",
     "hoist-non-react-statics": "^3.2.1",
     "lodash": "^4.17.11",
+    "postcss": "^7.0.6",
+    "postcss-scss": "^2.0.0",
+    "postcss-react-bender": "^0.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
