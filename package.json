@@ -33,7 +33,6 @@
     "postcss-react-bender": "^0.1.0"
   },
   "devDependencies": {
-    "@types/hoist-non-react-statics": "^3.0.1",
     "@types/jest": "^23.1.5",
     "@types/lodash": "^4.14.118",
     "@types/node": "^10.12.12",
