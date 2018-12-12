@@ -38,7 +38,7 @@ let defaultTheme;
  */
 export default class Theme {
   constructor(themeStyle) {
-    this[THEME_STYLE] = themeStyle // resolveStyle(themeStyle);
+    this[THEME_STYLE] = themeStyle; // resolveStyle(themeStyle);
     this[THEME_STYLE_CACHE] = {};
   }
 

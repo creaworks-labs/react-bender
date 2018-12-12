@@ -1,20 +1,18 @@
-import * as React from 'react';
-import * as ReactIs from 'react-is';
+import * as React from "react";
+import * as ReactIs from "react-is";
 
-import * as PropTypes from 'prop-types'
-import hoistNonReactStatics from 'hoist-non-react-statics'
+import * as PropTypes from "prop-types";
+import hoistNonReactStatics from "hoist-non-react-statics";
 // import hoistNonReactStatics = require('hoist-non-react-statics');
 import * as _ from "lodash";
 
-import { StyleProp, ImpreciseStyle, transformStyle } from './Style'
+import { StyleProp, ImpreciseStyle, transformStyle } from "./Style";
 
 import { resolveComponentStyle } from "./resolveComponentStyle";
 // import normalizeStyle from "./StyleNormalizer/normalizeStyle";
 
-// @ts-ignore 
+// @ts-ignore
 import Theme, { ThemeShape } from "./Theme";
-
-
 
 /**
  * Formats and throws an error when connecting component style with the theme.
@@ -22,7 +20,10 @@ import Theme, { ThemeShape } from "./Theme";
  * @param errorMessage The error message.
  * @param componentDisplayName The name of the component that is being connected.
  */
-function throwConnectStyleError(errorMessage: string, componentDisplayName: string) {
+function throwConnectStyleError(
+  errorMessage: string,
+  componentDisplayName: string
+) {
   throw Error(
     `${errorMessage} - when connecting ${componentDisplayName} component to style.`
   );
@@ -44,10 +45,14 @@ function getTheme(context: React.ValidationMap<any>) {
 type StyleNames = Array<string> | undefined;
 
 interface MapPropsToStyleNames<TProps> {
+  // tslint:disable-next-line
   (ownStyleNames: StyleNames, props: TProps): StyleNames;
 }
 
-type MapPropsToStyleNamesParams<TProps> = MapPropsToStyleNames<TProps> | null | undefined
+type MapPropsToStyleNamesParams<TProps> =
+  | MapPropsToStyleNames<TProps>
+  | null
+  | undefined;
 
 // interface StyleContext extends React.ValidationMap<any> {
 //   parentStyle: Object,
@@ -56,24 +61,24 @@ type MapPropsToStyleNamesParams<TProps> = MapPropsToStyleNames<TProps> | null | 
 
 // type StyleContext = React.ValidationMap<any>;
 
-
 interface ResolveStyleHandler<TProps> {
-  (props: TProps): ImpreciseStyle
+  // tslint:disable-next-line
+  (props: TProps): ImpreciseStyle;
 }
 
 interface StyleContextChild<TProps> {
-  parentStyle: Object,
-  resolveStyle: ResolveStyleHandler<TProps>
+  parentStyle: object;
+  resolveStyle: ResolveStyleHandler<TProps>;
 }
 
 interface BentContext {
-  theme: Object,
-  parentStyle: Object | null
+  theme: object;
+  parentStyle: object | null;
 }
 
 interface ConnectStyleOptions {
-  virtual?: Boolean,
-  withRef?: Boolean
+  virtual?: boolean;
+  withRef?: boolean;
 }
 
 // // Applies LibraryManagedAttributes (proper handling of defaultProps
@@ -88,11 +93,11 @@ interface ConnectStyleOptions {
 // }
 
 interface WrappableProps {
-  style? : StyleProp<ImpreciseStyle>
-  styleDefinitions?: Object
+  style?: StyleProp<ImpreciseStyle>;
+  styleDefinitions?: object;
 }
 
-type WrappableComponent = React.ComponentType<WrappableProps>
+type WrappableComponent = React.ComponentType<WrappableProps>;
 
 // interface ForwardedComponent {
 //   $$typeof$$: string
@@ -121,113 +126,125 @@ type WrappableComponent = React.ComponentType<WrappableProps>
  * @returns {StyledComponent} The new component that will handle
  * the styling of the wrapped component.
  */
-export default function (
+export default function(
   componentStyleName: string,
-  componentStyle: Object = {},
+  componentStyle: object = {},
   mapPropsToStyleNames: MapPropsToStyleNamesParams<any>,
-  options:ConnectStyleOptions = {}
+  options: ConnectStyleOptions = {}
 ): any {
-
-
   return function bendComponent(WrappedComponent: WrappableComponent) {
     if (!ReactIs.isValidElementType(WrappedComponent))
-      throw new Error(
-        "WrappedComponent is not a valid React component!"
-      );
+      throw new Error("WrappedComponent is not a valid React component!");
 
-    const wrappedComponentName = WrappedComponent.displayName
-      || WrappedComponent.name
-      || componentStyleName
+    const wrappedComponentName =
+      WrappedComponent.displayName ||
+      WrappedComponent.name ||
+      componentStyleName;
 
-    if (!_.isPlainObject(componentStyle)) {
+    if (!_.isPlainObject(componentStyle))
       throwConnectStyleError(
         "Component style must be plain object",
         wrappedComponentName
       );
-    }
 
-    if (!_.isString(componentStyleName)) {
+    if (!_.isString(componentStyleName))
       throwConnectStyleError(
         "Component Style Name must be string",
         wrappedComponentName
       );
-    }
 
-    function isStateful():boolean {
-      //@ts-ignore
-      return (WrappedComponent.prototype !== undefined && WrappedComponent.prototype.render !== undefined) || (WrappedComponent.render !== undefined)
+    function isStateful(): boolean {
+      return (
+        (WrappedComponent.prototype !== undefined &&
+          WrappedComponent.prototype.render !== undefined) ||
+        // @ts-ignore
+        WrappedComponent.render !== undefined
+      );
     }
 
     interface BenderProps {
       // Element style that overrides any other style of the component
-      style: StyleProp<ImpreciseStyle>,
+      style: StyleProp<ImpreciseStyle>;
       // The style variant names to apply to this component,
       // multiple variants may be separated with a space character
-      styleName: string,
+      styleName: string;
       // Virtual elements will propagate the parent
       // style to their children, i.e., the children
       // will behave as they are placed directly below
       // the parent of a virtual element.
-      virtual: boolean,
+      virtual: boolean;
       // Extracts @style-def definitions as a separate style definitions
       // that will be passed into wrapped component as `styleDefinitons` prop.
-      extractDefinitions: boolean,
-    }
-    
-    interface BenderStates {
-      styleNames?: Array<string>,
-      styles: {
-        component: Object,
-        definitions?: Object
-      },
-      // addedProps: Object,
-      childrenStyle: Object
+      extractDefinitions: boolean;
     }
 
-    
+    interface BenderStates {
+      styleNames?: Array<string>;
+      styles: {
+        component: object;
+        definitions?: object;
+      };
+      // addedProps: Object,
+      childrenStyle: object;
+    }
+
     class BenderComponent extends React.Component<BenderProps, BenderStates>
-      implements 
-        React.ChildContextProvider<StyleContextChild<BenderProps>>
-     {
+      implements React.ChildContextProvider<StyleContextChild<BenderProps>> {
       static contextTypes: React.ValidationMap<BentContext> = {
         theme: ThemeShape,
         // The style inherited from the parent
         parentStyle: PropTypes.object
       };
-      
-      static childContextTypes: React.ValidationMap<StyleContextChild<BenderProps>> = {
+
+      static childContextTypes: React.ValidationMap<
+        StyleContextChild<BenderProps>
+      > = {
         // Provide the parent style to child components
         parentStyle: PropTypes.object.isRequired,
         resolveStyle: PropTypes.func.isRequired
       };
-    
+
       static defaultProps = {
         virtual: options.virtual,
         extractDefinitions: true
       };
-    
+
       static displayName = `withBenderStyles(${wrappedComponentName})`;
       static WrappedComponent: WrappableComponent = WrappedComponent;
-    
-      wrappedRef:any = null
 
-      constructor(props: BenderProps, context: React.ValidationMap<BentContext>) {
+      wrappedRef: any = null;
+
+      constructor(
+        props: BenderProps,
+        context: React.ValidationMap<BentContext>
+      ) {
         super(props, context);
         const styleNames = this.resolveStyleNames(props);
-        const { componentStyle, componentDefinitions, childrenStyle } = this.resolveStyle(context, props.style, styleNames, props.extractDefinitions);
-        
+        const {
+          componentStyle,
+          componentDefinitions,
+          childrenStyle
+        } = this.resolveStyle(
+          context,
+          props.style,
+          styleNames,
+          props.extractDefinitions
+        );
+
         this.state = {
           styles: {
-            component: props.extractDefinitions ? transformStyle(componentStyle) : componentStyle,
+            component: props.extractDefinitions
+              ? transformStyle(componentStyle)
+              : componentStyle,
             definitions: componentDefinitions
           },
-          childrenStyle: childrenStyle,
+          childrenStyle,
           styleNames
         };
 
         this.setWrappedRef = this.setWrappedRef.bind(this);
       }
-    
+
       getChildContext(): StyleContextChild<BenderProps> {
         return {
           // if virtual is set then propagate the connected parent style
@@ -238,12 +255,19 @@ export default function (
           resolveStyle: this.resolveConnectedComponentStyle
         };
       }
-    
-      componentWillReceiveProps(nextProps: BenderProps, nextContext: React.ValidationMap<BentContext>) {
+
+      componentWillReceiveProps(
+        nextProps: BenderProps,
+        nextContext: React.ValidationMap<BentContext>
+      ) {
         const styleNames = this.resolveStyleNames(nextProps);
-        
+
         if (this.shouldRebuildStyle(nextProps, nextContext, styleNames)) {
-          const { componentStyle, childrenStyle, componentDefinitions } = this.resolveStyle(
+          const {
+            componentStyle,
+            childrenStyle,
+            componentDefinitions
+          } = this.resolveStyle(
             nextContext,
             nextProps.style,
             styleNames,
@@ -252,7 +276,9 @@ export default function (
 
           this.setState({
             styles: {
-              component: nextProps.extractDefinitions ? transformStyle(componentStyle) : componentStyle,
+              component: nextProps.extractDefinitions
+                ? transformStyle(componentStyle)
+                : componentStyle,
               definitions: componentDefinitions
             },
             childrenStyle,
@@ -260,29 +286,25 @@ export default function (
           });
         }
       }
-    
-      setNativeProps(nativeProps:Object) {
+
+      setNativeProps(nativeProps: object) {
         if (!this.wrappedRef) {
-          console.warn('setNativeProps can\'nt be used on stateless components');
+          // tslint:disable-next-line
+          console.warn("setNativeProps can'nt be used on stateless components");
           return;
         }
 
-        if (this.wrappedRef.setNativeProps) {
+        if (this.wrappedRef.setNativeProps)
           this.wrappedRef.setNativeProps(nativeProps);
-        }
       }
-    
-      setWrappedRef(component: any) {
-        if (!component)
-          return;
 
-        if (component.wrappedRef) {
-          this.wrappedRef = component.wrappedRef;
-        } else {
-          this.wrappedRef = component;
-        }
+      setWrappedRef(component: any) {
+        if (!component) return;
+
+        if (component.wrappedRef) this.wrappedRef = component.wrappedRef;
+        else this.wrappedRef = component;
       }
-    
+
       hasStyleNameChanged(nextProps: BenderProps, styleNames: StyleNames) {
         return (
           mapPropsToStyleNames &&
@@ -292,8 +314,12 @@ export default function (
           !_.isEqual(this.state.styleNames, styleNames)
         );
       }
-    
-      shouldRebuildStyle(nextProps: BenderProps, nextContext: React.ValidationMap<BentContext>, styleNames: StyleNames) {
+
+      shouldRebuildStyle(
+        nextProps: BenderProps,
+        nextContext: React.ValidationMap<BentContext>,
+        styleNames: StyleNames
+      ) {
         return (
           nextProps.style !== this.props.style ||
           nextProps.styleName !== this.props.styleName ||
@@ -302,43 +328,43 @@ export default function (
           this.hasStyleNameChanged(nextProps, styleNames)
         );
       }
-    
+
       resolveStyleNames(props: BenderProps): StyleNames {
         const { styleName } = props;
 
         const styleNames = styleName ? styleName.split(/\s/g) : [];
-    
-        if (!mapPropsToStyleNames) {
-          return styleNames;
-        }
-    
+
+        if (!mapPropsToStyleNames) return styleNames;
+
         // We only want to keep the unique style names
         return _.uniq(mapPropsToStyleNames(styleNames, props));
       }
-    
-      resolveStyle(context: React.ValidationMap<BentContext>, 
-        styleProp: StyleProp<ImpreciseStyle>, 
+
+      resolveStyle(
+        context: React.ValidationMap<BentContext>,
+        styleProp: StyleProp<ImpreciseStyle>,
         styleNames: StyleNames,
-        extractDefinitions: boolean) {
+        extractDefinitions: boolean
+      ) {
         const { parentStyle } = context;
-    
+
         const theme = getTheme(context);
-        //@ts-ignore
+        // @ts-ignore
         const themeStyle = theme.createComponentStyle(
           componentStyleName,
           componentStyle
         );
-    
+
         return resolveComponentStyle(
           componentStyleName,
           styleNames,
           themeStyle,
           parentStyle,
           styleProp,
-          extractDefinitions,
+          extractDefinitions
         );
       }
-    
+
       /**
        * A helper function provided to child components that enables
        * them to resolve their style for any set of prop values.
@@ -347,10 +373,13 @@ export default function (
        * @returns {*} The resolved component style.
        */
       resolveConnectedComponentStyle(props: BenderProps): ImpreciseStyle {
-        debugger
         const styleNames = this.resolveStyleNames(props);
-        return this.resolveStyle(this.context, props.style, styleNames, props.extractDefinitions)
-          .componentStyle;
+        return this.resolveStyle(
+          this.context,
+          props.style,
+          styleNames,
+          props.extractDefinitions
+        ).componentStyle;
       }
 
       // flattenStylesOverProps(props: BenderProps, style: Object): any {
@@ -360,10 +389,12 @@ export default function (
 
       //   return style;
       // }
-    
+
       render() {
         const { styles } = this.state;
-        const addedProps = isStateful() ? { ref: this.setWrappedRef } : undefined
+        const addedProps = isStateful()
+          ? { ref: this.setWrappedRef }
+          : undefined;
 
         return (
           <WrappedComponent
@@ -378,4 +409,4 @@ export default function (
 
     return hoistNonReactStatics(BenderComponent, WrappedComponent);
   };
-};
+}

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types'
-//@ts-ignore
+import * as React from "react";
+import * as PropTypes from "prop-types";
+// @ts-ignore
 import Theme, { ThemeShape } from "./Theme";
 
 interface BenderProps {
-  stylesheet: any
+  stylesheet: any;
 }
 
 interface BenderStates {
-  theme: any
+  theme: any;
 }
 
 /**
@@ -42,11 +42,10 @@ export default class Bender extends React.Component<BenderProps, BenderStates> {
   }
 
   componentWillReceiveProps(nextProps: BenderProps) {
-    if (nextProps.stylesheet !== this.props.stylesheet) {
+    if (nextProps.stylesheet !== this.props.stylesheet)
       this.setState({
         theme: this.createTheme(nextProps)
       });
-    }
   }
 
   createTheme(props: BenderProps) {

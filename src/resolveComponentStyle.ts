@@ -1,6 +1,6 @@
-import * as _ from 'lodash';
+import * as _ from "lodash";
 // import { StyleProp, ViewStyle, ImageStyle, TextStyle } from 'react-native';
-import { StyleProp, ImpreciseStyle, flattenStyle } from './Style'
+import { StyleProp, ImpreciseStyle, flattenStyle } from "./Style";
 
 /**
  * Matches any style properties that represent component style variants.
@@ -12,7 +12,7 @@ import { StyleProp, ImpreciseStyle, flattenStyle } from './Style'
  * @returns {boolean} True if the style property represents a component variant, false otherwise.
  */
 const REGEX_ISSTYLE_VARIANT = /^\./;
-function isStyleVariant(propertyName:string) {
+function isStyleVariant(propertyName: string) {
   return REGEX_ISSTYLE_VARIANT.test(propertyName);
 }
 
@@ -29,7 +29,7 @@ function isStyleVariant(propertyName:string) {
  * @returns {boolean} True if the style property represents a child style, false otherwise.
  */
 const REGEX_IS_CHILD_STYLE = /(^[^\.].*\.)|(^[A-Z][^\s]*)|^\*$/;
-function isChildStyle(propertyName:string) {
+function isChildStyle(propertyName: string) {
   return REGEX_IS_CHILD_STYLE.test(propertyName);
 }
 
@@ -44,23 +44,25 @@ function isChildStyle(propertyName:string) {
  * @returns {*} An object with the componentStyle, styleVariants, and childrenStyle keys.
  */
 function splitStyle(style: any, extractDefinitions: boolean) {
-  return _.reduce(style, (result, value, key) => {
-    let styleSection: any = result.componentStyle;
-    if (isStyleVariant(key)) {
-      styleSection = result.styleVariants;
-    } else if (isChildStyle(key)) {
-      styleSection = result.childrenStyle;
-    } else if (extractDefinitions && typeof value === 'object') {
-      styleSection = result.componentDefinitions;
+  return _.reduce(
+    style,
+    (result, value, key) => {
+      let styleSection: any = result.componentStyle;
+      if (isStyleVariant(key)) styleSection = result.styleVariants;
+      else if (isChildStyle(key)) styleSection = result.childrenStyle;
+      else if (extractDefinitions && typeof value === "object")
+        styleSection = result.componentDefinitions;
+
+      styleSection[key] = value;
+      return result;
+    },
+    {
+      componentStyle: {},
+      componentDefinitions: {},
+      styleVariants: {},
+      childrenStyle: {}
     }
-    styleSection[key] = value;
-    return result;
-  }, {
-    componentStyle: {},
-    componentDefinitions: {},
-    styleVariants: {},
-    childrenStyle: {},
-  });
+  );
 }
 
 /**
@@ -87,33 +89,40 @@ function splitStyle(style: any, extractDefinitions: boolean) {
  * @returns {{componentStyle, componentDefinitions, childrenStyle}} The resolved component and children styles.
  */
 export function resolveComponentStyle(
-  componentName:string,
-  styleNames:Array<string> = [],
+  componentName: string,
+  styleNames: Array<string> = [],
   themeStyle: any = {},
   parentStyle: any = {},
   elementStyle: StyleProp<ImpreciseStyle> = {},
   extractDefinitions: boolean = true
-): { 
-  componentStyle: ImpreciseStyle,
-  componentDefinitions: ImpreciseStyle,
-  childrenStyle: ImpreciseStyle 
+): {
+  componentStyle: ImpreciseStyle;
+  componentDefinitions: ImpreciseStyle;
+  childrenStyle: ImpreciseStyle;
 } {
-  const styleAllFromAncestor = parentStyle['*'];
+  const styleAllFromAncestor = parentStyle["*"];
   const styleComponentFromAncestor = parentStyle[componentName];
-  const styleAllByNameFromAncestor = _.map(styleNames, (sn) => parentStyle[`*.${sn}`]);
-  const styleByComponentAndNameFromAncestor = _.map(styleNames, (sn) => parentStyle[`${componentName}.${sn}`]);
-  const styleByProps = flattenStyle(elementStyle)
+  const styleAllByNameFromAncestor = _.map(
+    styleNames,
+    sn => parentStyle[`*.${sn}`]
+  );
+  const styleByComponentAndNameFromAncestor = _.map(
+    styleNames,
+    sn => parentStyle[`${componentName}.${sn}`]
+  );
+  const styleByProps = flattenStyle(elementStyle);
 
   // Phase 1: merge the styles in the correct order to resolve the variant styles,
   // the component style will be merged as well in this step, but the component
   // style merge results are ignored after this step. We need to perform this
   // step separately because the style variants may be overridden by any style, so
   // the purpose of this phase is to determine the final state of the variant styles.
-  const mergedStyle = _.merge({},
+  const mergedStyle = _.merge(
+    {},
     themeStyle,
     styleAllFromAncestor,
     styleComponentFromAncestor,
-    ..._.map(styleNames, (sn) => themeStyle[`.${sn}`]),
+    ..._.map(styleNames, sn => themeStyle[`.${sn}`]),
     ...styleAllByNameFromAncestor,
     ...styleByComponentAndNameFromAncestor,
     styleByProps
@@ -122,21 +131,25 @@ export function resolveComponentStyle(
   // Phase 2: merge the component styles, this step is performed by using the
   // style from phase 1, so that we are sure that the final style variants are
   // applied to component style.
-  const resolvedStyle = _.merge({},
+  const resolvedStyle = _.merge(
+    {},
     mergedStyle,
     styleAllFromAncestor,
     styleComponentFromAncestor,
-    ..._.map(styleNames, (sn) => mergedStyle[`.${sn}`]),
+    ..._.map(styleNames, sn => mergedStyle[`.${sn}`]),
     ...styleAllByNameFromAncestor,
     ...styleByComponentAndNameFromAncestor,
     styleByProps
   );
 
-  const { componentStyle, childrenStyle, componentDefinitions } = splitStyle(resolvedStyle, extractDefinitions);
+  const { componentStyle, childrenStyle, componentDefinitions } = splitStyle(
+    resolvedStyle,
+    extractDefinitions
+  );
 
   return {
     componentStyle,
     componentDefinitions,
-    childrenStyle,
+    childrenStyle
   };
 }

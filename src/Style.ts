@@ -1,5 +1,9 @@
-
-type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+type FlexAlignType =
+  | "flex-start"
+  | "flex-end"
+  | "center"
+  | "stretch"
+  | "baseline";
 
 /**
  * Flex Prop Types
@@ -8,65 +12,76 @@ type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baselin
  * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
-    alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around";
-    alignItems?: FlexAlignType;
-    alignSelf?: "auto" | FlexAlignType;
-    aspectRatio?: number;
-    borderBottomWidth?: number;
-    borderEndWidth?: number | string;
-    borderLeftWidth?: number;
-    borderRightWidth?: number;
-    borderStartWidth?: number | string;
-    borderTopWidth?: number;
-    borderWidth?: number;
-    bottom?: number | string;
-    display?: "none" | "flex";
-    end?: number | string;
-    flex?: number;
-    flexBasis?: number | string;
-    flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
-    flexGrow?: number;
-    flexShrink?: number;
-    flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
-    height?: number | string;
-    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
-    left?: number | string;
-    margin?: number | string;
-    marginBottom?: number | string;
-    marginEnd?: number | string;
-    marginHorizontal?: number | string;
-    marginLeft?: number | string;
-    marginRight?: number | string;
-    marginStart?: number | string;
-    marginTop?: number | string;
-    marginVertical?: number | string;
-    maxHeight?: number | string;
-    maxWidth?: number | string;
-    minHeight?: number | string;
-    minWidth?: number | string;
-    overflow?: "visible" | "hidden" | "scroll";
-    padding?: number | string;
-    paddingBottom?: number | string;
-    paddingEnd?: number | string;
-    paddingHorizontal?: number | string;
-    paddingLeft?: number | string;
-    paddingRight?: number | string;
-    paddingStart?: number | string;
-    paddingTop?: number | string;
-    paddingVertical?: number | string;
-    position?: "absolute" | "relative";
-    right?: number | string;
-    start?: number | string;
-    top?: number | string;
-    width?: number | string;
-    zIndex?: number;
+  alignContent?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "stretch"
+    | "space-between"
+    | "space-around";
+  alignItems?: FlexAlignType;
+  alignSelf?: "auto" | FlexAlignType;
+  aspectRatio?: number;
+  borderBottomWidth?: number;
+  borderEndWidth?: number | string;
+  borderLeftWidth?: number;
+  borderRightWidth?: number;
+  borderStartWidth?: number | string;
+  borderTopWidth?: number;
+  borderWidth?: number;
+  bottom?: number | string;
+  display?: "none" | "flex";
+  end?: number | string;
+  flex?: number;
+  flexBasis?: number | string;
+  flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
+  flexGrow?: number;
+  flexShrink?: number;
+  flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
+  height?: number | string;
+  justifyContent?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
+  left?: number | string;
+  margin?: number | string;
+  marginBottom?: number | string;
+  marginEnd?: number | string;
+  marginHorizontal?: number | string;
+  marginLeft?: number | string;
+  marginRight?: number | string;
+  marginStart?: number | string;
+  marginTop?: number | string;
+  marginVertical?: number | string;
+  maxHeight?: number | string;
+  maxWidth?: number | string;
+  minHeight?: number | string;
+  minWidth?: number | string;
+  overflow?: "visible" | "hidden" | "scroll";
+  padding?: number | string;
+  paddingBottom?: number | string;
+  paddingEnd?: number | string;
+  paddingHorizontal?: number | string;
+  paddingLeft?: number | string;
+  paddingRight?: number | string;
+  paddingStart?: number | string;
+  paddingTop?: number | string;
+  paddingVertical?: number | string;
+  position?: "absolute" | "relative";
+  right?: number | string;
+  start?: number | string;
+  top?: number | string;
+  width?: number | string;
+  zIndex?: number;
 
-    /**
-     * @platform ios
-     */
-    direction?: "inherit" | "ltr" | "rtl";
+  /**
+   * @platform ios
+   */
+  direction?: "inherit" | "ltr" | "rtl";
 }
-
 
 export interface ShadowStyleIOS {
   shadowColor?: string;
@@ -74,7 +89,6 @@ export interface ShadowStyleIOS {
   shadowOpacity?: number;
   shadowRadius?: number;
 }
-
 
 interface PerpectiveTransform {
   perspective: number;
@@ -126,18 +140,18 @@ interface SkewYTransform {
 
 export interface TransformsStyle {
   transform?: (
-      | PerpectiveTransform
-      | RotateTransform
-      | RotateXTransform
-      | RotateYTransform
-      | RotateZTransform
-      | ScaleTransform
-      | ScaleXTransform
-      | ScaleYTransform
-      | TranslateXTransform
-      | TranslateYTransform
-      | SkewXTransform
-      | SkewYTransform)[];
+    | PerpectiveTransform
+    | RotateTransform
+    | RotateXTransform
+    | RotateYTransform
+    | RotateZTransform
+    | ScaleTransform
+    | ScaleXTransform
+    | ScaleYTransform
+    | TranslateXTransform
+    | TranslateYTransform
+    | SkewXTransform
+    | SkewYTransform)[];
   transformMatrix?: Array<number>;
   rotation?: number;
   scaleX?: number;
@@ -178,17 +192,15 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
   opacity?: number;
   testID?: string;
   /**
-    * Sets the elevation of a view, using Android's underlying
-    * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
-    * This adds a drop shadow to the item and affects z-order for overlapping views.
-    * Only supported on Android 5.0+, has no effect on earlier versions.
-    *
-    * @platform android
-    */
+   * Sets the elevation of a view, using Android's underlying
+   * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
+   * This adds a drop shadow to the item and affects z-order for overlapping views.
+   * Only supported on Android 5.0+, has no effect on earlier versions.
+   *
+   * @platform android
+   */
   elevation?: number;
 }
-
-
 
 export interface TextStyleIOS extends ViewStyle {
   letterSpacing?: number;
@@ -214,11 +226,26 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
    * for most fonts. Not all fonts have a variant for each of the numeric
    * values, in that case the closest one is chosen.
    */
-  fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
+  fontWeight?:
+    | "normal"
+    | "bold"
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
   letterSpacing?: number;
   lineHeight?: number;
   textAlign?: "auto" | "left" | "right" | "center" | "justify";
-  textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through";
+  textDecorationLine?:
+    | "none"
+    | "underline"
+    | "line-through"
+    | "underline line-through";
   textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
   textDecorationColor?: string;
   textShadowColor?: string;
@@ -227,7 +254,12 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
   testID?: string;
 }
 
-export type ImageResizeMode = "cover" | "contain" | "stretch" | "repeat" | "center";
+export type ImageResizeMode =
+  | "cover"
+  | "contain"
+  | "stretch"
+  | "repeat"
+  | "center";
 
 /**
  * Image style
@@ -251,41 +283,32 @@ export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
   opacity?: number;
 }
 
-export type ImpreciseStyle = TextStyle | ViewStyle | ImageStyle
+export type ImpreciseStyle = TextStyle | ViewStyle | ImageStyle;
 
 type Falsy = undefined | null | false;
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 export type StyleProp<T> = T | RecursiveArray<T | Falsy> | Falsy;
 
 export function flattenStyle<T = ImpreciseStyle>(style?: StyleProp<T>) {
-  if (style === null || typeof style !== 'object') {
-    return undefined;
-  }
+  if (style === null || typeof style !== "object") return undefined;
 
-  if (!Array.isArray(style)) {
-    return style;
-  }
+  if (!Array.isArray(style)) return style;
 
   const result = {};
   for (let i = 0, styleLength = style.length; i < styleLength; ++i) {
     const computedStyle = flattenStyle(style[i]);
-    if (computedStyle) {
-      for (const key in computedStyle) {
-        // @ts-ignore
-        result[key] = computedStyle[key];
-      }
-    }
+    if (computedStyle)
+      // @ts-ignore
+      for (const key in computedStyle) result[key] = computedStyle[key];
   }
 
   return result;
 }
 
 export function transformStyle(style?: ImpreciseStyle) {
-  if (!style)
-    return {};
+  if (!style) return {};
 
-  if (__DEV__)
-    return Object.freeze(style);
+  if (__DEV__) return Object.freeze(style);
 
   return style;
 }
