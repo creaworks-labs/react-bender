@@ -224,6 +224,8 @@ export default function (
           childrenStyle: childrenStyle,
           styleNames
         };
+
+        this.setWrappedRef = this.setWrappedRef.bind(this);
       }
     
       getChildContext(): StyleContextChild<BentProps> {
