@@ -15,12 +15,17 @@
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
+    "lint:prettier-quite": "prettier 'src/**/*.{js,ts,tsx}' --write",
+    "lint:prettier": "yarn lint:prettier-quite --list-different",
+    "lint:ts": "tslint src/**/*.{ts,tsx}",
+    "lint": "yarn lint:ts && yarn lint:prettier-quite",
     "build:bender": "rollup -c .rollup.bender.js",
     "build": "rm -rf dist && yarn build:bender --silent",
     "start": "yarn build:bender -w",
     "prepare": "yarn run build",
     "predeploy": "cd example-web && yarn install && yarn run build",
-    "deploy": "gh-pages -d example-web/build"
+    "deploy": "gh-pages -d example-web/build",
+    "pretest": "yarn lint && yarn rollup"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.2.1",
@@ -57,6 +62,7 @@
     "postcss": "^7.0.6",
     "postcss-react-bender": "^0.1.0",
     "postcss-scss": "^2.0.0",
+    "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -69,6 +75,10 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.17.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.8.3"
   },
   "files": [

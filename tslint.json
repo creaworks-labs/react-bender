@@ -1,0 +1,19 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-standard",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "interface-name": false,
+    "ordered-imports": false,
+    "array-type": false,
+    "member-access": [true, "no-public"],
+    "curly": [true, "as-needed"],
+    "object-literal-sort-keys": false,
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "no-shadowed-variable": false  
+  }
+}
