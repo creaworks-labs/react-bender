@@ -158,7 +158,7 @@ export default function (
       return (WrappedComponent.prototype !== undefined && WrappedComponent.prototype.render !== undefined) || (WrappedComponent.render !== undefined)
     }
 
-    interface BentProps {
+    interface BenderProps {
       // Element style that overrides any other style of the component
       style: StyleProp<ImpreciseStyle>,
       // The style variant names to apply to this component,
@@ -174,7 +174,7 @@ export default function (
       extractDefinitions: boolean,
     }
     
-    interface BentStates {
+    interface BenderStates {
       styleNames?: Array<string>,
       styles: {
         component: Object,
@@ -185,9 +185,9 @@ export default function (
     }
 
     
-    class BentComponent extends React.Component<BentProps, BentStates>
+    class BenderComponent extends React.Component<BenderProps, BenderStates>
       implements 
-        React.ChildContextProvider<StyleContextChild<BentProps>>
+        React.ChildContextProvider<StyleContextChild<BenderProps>>
      {
       static contextTypes: React.ValidationMap<BentContext> = {
         theme: ThemeShape,
@@ -195,7 +195,7 @@ export default function (
         parentStyle: PropTypes.object
       };
       
-      static childContextTypes: React.ValidationMap<StyleContextChild<BentProps>> = {
+      static childContextTypes: React.ValidationMap<StyleContextChild<BenderProps>> = {
         // Provide the parent style to child components
         parentStyle: PropTypes.object.isRequired,
         resolveStyle: PropTypes.func.isRequired
@@ -211,7 +211,7 @@ export default function (
     
       wrappedRef:any = null
 
-      constructor(props: BentProps, context: React.ValidationMap<BentContext>) {
+      constructor(props: BenderProps, context: React.ValidationMap<BentContext>) {
         super(props, context);
         const styleNames = this.resolveStyleNames(props);
         const { componentStyle, componentDefinitions, childrenStyle } = this.resolveStyle(context, props.style, styleNames, props.extractDefinitions);
@@ -228,7 +228,7 @@ export default function (
         this.setWrappedRef = this.setWrappedRef.bind(this);
       }
     
-      getChildContext(): StyleContextChild<BentProps> {
+      getChildContext(): StyleContextChild<BenderProps> {
         return {
           // if virtual is set then propagate the connected parent style
           // otherwise use resolved children styles.
@@ -239,7 +239,7 @@ export default function (
         };
       }
     
-      componentWillReceiveProps(nextProps: BentProps, nextContext: React.ValidationMap<BentContext>) {
+      componentWillReceiveProps(nextProps: BenderProps, nextContext: React.ValidationMap<BentContext>) {
         const styleNames = this.resolveStyleNames(nextProps);
         
         if (this.shouldRebuildStyle(nextProps, nextContext, styleNames)) {
@@ -283,7 +283,7 @@ export default function (
         }
       }
     
-      hasStyleNameChanged(nextProps: BentProps, styleNames: StyleNames) {
+      hasStyleNameChanged(nextProps: BenderProps, styleNames: StyleNames) {
         return (
           mapPropsToStyleNames &&
           this.props !== nextProps &&
@@ -293,7 +293,7 @@ export default function (
         );
       }
     
-      shouldRebuildStyle(nextProps: BentProps, nextContext: React.ValidationMap<BentContext>, styleNames: StyleNames) {
+      shouldRebuildStyle(nextProps: BenderProps, nextContext: React.ValidationMap<BentContext>, styleNames: StyleNames) {
         return (
           nextProps.style !== this.props.style ||
           nextProps.styleName !== this.props.styleName ||
@@ -303,7 +303,7 @@ export default function (
         );
       }
     
-      resolveStyleNames(props: BentProps): StyleNames {
+      resolveStyleNames(props: BenderProps): StyleNames {
         const { styleName } = props;
 
         const styleNames = styleName ? styleName.split(/\s/g) : [];
@@ -346,14 +346,14 @@ export default function (
        * @param props The component props to use to resolve the style values.
        * @returns {*} The resolved component style.
        */
-      resolveConnectedComponentStyle(props: BentProps): ImpreciseStyle {
+      resolveConnectedComponentStyle(props: BenderProps): ImpreciseStyle {
         debugger
         const styleNames = this.resolveStyleNames(props);
         return this.resolveStyle(this.context, props.style, styleNames, props.extractDefinitions)
           .componentStyle;
       }
 
-      // flattenStylesOverProps(props: BentProps, style: Object): any {
+      // flattenStylesOverProps(props: BenderProps, style: Object): any {
       //   if (props.style) {
       //     return StyleSheet.flatten([props.style, style])
       //   }
@@ -376,6 +376,6 @@ export default function (
       }
     }
 
-    return hoistNonReactStatics(BentComponent, WrappedComponent);
+    return hoistNonReactStatics(BenderComponent, WrappedComponent);
   };
 };
