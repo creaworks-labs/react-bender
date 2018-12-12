@@ -15,8 +15,9 @@
   "scripts": {
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
-    "build": "rollup -c",
-    "start": "rollup -c -w",
+    "build:bender": "rollup -c .rollup.bender.js",
+    "build": "rm -rf dist && yarn build:bender --silent",
+    "start": "yarn build:bender -w",
     "prepare": "yarn run build",
     "predeploy": "cd example-web && yarn install && yarn run build",
     "deploy": "gh-pages -d example-web/build"
