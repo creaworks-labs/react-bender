@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text } from './components'
 
 import { Bender } from 'react-bender'
-import styles from './styles/index.bender'
+import styles from './styles'
 
 export default class App extends Component {
   render () {
@@ -10,7 +10,7 @@ export default class App extends Component {
     return (
       <div>
         <Bender stylesheet={styles}>
-          <View>
+          <View flexible>
             <Text>Hello</Text>
           </View>
         </Bender>

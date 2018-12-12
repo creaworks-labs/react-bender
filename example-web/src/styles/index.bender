@@ -1,4 +1,11 @@
 #View {
-  background-color: 'blue'
+  background-color: 'blue';
+
+  .flexible {
+    flex: 1
+  }
 }
 
+#Text {
+  color: 'white'
+}

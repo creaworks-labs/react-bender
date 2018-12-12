@@ -7,4 +7,14 @@ const View = ({ style, styleDefinitions, children }) => {
   )
 }
 
-export default withBenderStyles('View')(View);
+type Props = {
+  flexible?: boolean
+}
+
+
+const mapPropsToStyleName = (ownStyleNames: StyleNames, props: Props): StyleNames => {
+  if (props.flexible)
+    return ['flexible']
+}
+
+export default withBenderStyles('View', undefined, mapPropsToStyleName)(View);
