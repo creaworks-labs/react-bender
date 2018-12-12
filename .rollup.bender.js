@@ -37,6 +37,6 @@ export default {
     }),
     copy([
       { files: 'support/*', dest: 'dist/support' },
-    ], { verbose: true, watch: true })
+    ], { verbose: true })
   ]
 }
