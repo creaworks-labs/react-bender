@@ -1,0 +1,69 @@
+@import 'common.bender';
+
+#View {
+  @extend commonVariants;
+  @extend guttersPadding;
+
+  .horizontal {
+    @extend horizontalFlexAlignment;
+    flex-direction: 'row';
+    align-items: 'flex-end';
+  }
+
+  .vertical {
+    @extend verticalFlexAlignment;
+    flex-direction: 'column';
+  }
+
+  .fill-parent {
+    @extend fillParent;
+  }
+
+  .wrap {
+    flex-wrap: 'wrap';
+  }
+
+  .center {
+    align-self: 'center';
+  }
+}
+
+#Text {
+  @extend commonVariants;
+  @extend guttersMargin;
+  
+  .bold {
+    font-weight: '500';
+  }
+
+  .italic {
+    font-style: 'italic';
+  }
+
+  .line-through {
+    text-decoration-line: 'line-through';
+  }
+
+  .multiline {
+    .v-center {
+      // Compensate for lineHeight, because
+      // textAlignVertical is not supported on iOS
+      margin-top: -4px;
+      margin-bottom: 4px;
+    }
+
+    line-height: 26px;
+  }
+
+  .h-start {
+    text-align: 'left';
+  }
+
+  .h-end {
+    text-align: 'right';
+  }
+
+  .h-center {
+    text-align: 'center';
+  }
+}
