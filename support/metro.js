@@ -27,7 +27,7 @@ if (reactNativeMinorVersion >= 56) {
   };
 }
 
-var styleExtensions = ["scss"]; 
+var styleExtensions = ["bender"]; 
 
 module.exports.transform = function(src, filename, options) {
   if (typeof src === "object") {
