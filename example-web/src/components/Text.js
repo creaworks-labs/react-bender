@@ -3,7 +3,7 @@ import { withBenderStyles } from 'react-bender';
 
 const Text = ({ style, styleDefinitions, children }) => {
   return (
-    <span style={style}>{children}</span>
+    <yoga-text style={style}>{children}</yoga-text>
   )
 }
 
