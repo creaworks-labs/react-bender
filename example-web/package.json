@@ -9,7 +9,8 @@
     "react": "^16.4.1",
     "react-bender": "link:..",
     "react-dom": "^16.4.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "yoga-css": "^0.0.3"
   },
   "devDependencies": {
     "customize-cra": "^0.2.7",
