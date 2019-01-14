@@ -1,0 +1,5 @@
+$smallGutter: 5px;
+$mediumGutter: 15px;
+$largeGutter: 30px;
+$extraLargeGutter: 45px;
+$galleryDotSize: 8px;

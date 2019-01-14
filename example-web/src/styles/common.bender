@@ -1,0 +1,129 @@
+@import './variables.bender';
+
+@style-def guttersMargin {
+  .sm-gutter {
+    margin: $smallGutter;
+  }
+
+  .md-gutter {
+    margin: $mediumGutter;
+  }
+
+  .lg-gutter {
+    margin: $largeGutter;
+  }
+
+  .xl-gutter {
+    margin: $extraLargeGutter;
+  }
+}
+
+@style-def guttersPadding {
+  .sm-gutter {
+    padding: $smallGutter;
+  }
+
+  .md-gutter {
+    padding: $mediumGutter;
+  }
+
+  .lg-gutter {
+    padding: $largeGutter;
+  }
+
+  .xl-gutter {
+    padding: $extraLargeGutter;
+  }
+}
+
+@style-def commonVariants {
+  .rounded-corners {
+    border-radius: 2px;
+    border-width: 0px;
+    border-color: 'transparent';
+  }
+
+  .flexible {
+    flex: 1;
+  }
+
+  .inflexible {
+    flex: 0;
+  }
+
+  .collapsible {
+    flex: -1;
+  }
+
+  .stretch {
+    align-self: 'stretch';
+  }
+
+  .space-between {
+    justify-content: 'space-between';
+  }
+
+  .space-around {
+    justify-content: 'space-around';
+  }
+}
+
+@style-def fillParent {
+  position: 'absolute';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@style-def verticalFlexAlignment {
+  .h-center {
+    align-items: 'center';
+  }
+
+  .h-start {
+    align-items: 'flex-start';
+  }
+
+  .h-end {
+    align-items: 'flex-end';
+  }
+
+  .v-center {
+    justify-content: 'center';
+  }
+
+  .v-start {
+    justify-content: 'flex-start';
+  }
+
+  .v-end {
+    justify-content: 'flex-end';
+  }
+}
+
+@style-def horizontalFlexAlignment {
+  .h-center {
+    justify-content: 'center';
+  }
+
+  .h-start {
+    justify-content: 'flex-start';
+  }
+
+  .h-end {
+    justify-content: 'flex-end';
+  }
+
+  .v-center {
+    align-items: 'center';
+  }
+
+  .v-start {
+    align-items: 'flex-start';
+  }
+
+  .v-end {
+    align-items: 'flex-end';
+  }
+}
