@@ -6288,6 +6288,11 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
   integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
 
+multi-loader@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/multi-loader/-/multi-loader-0.1.0.tgz#2f0cc7438ec6e4a4ebc1a387015849b04f875f44"
+  integrity sha1-LwzHQ47G5KTrwaOHAVhJsE+HX0Q=
+
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/multicast-dns-service-types/-/multicast-dns-service-types-1.1.0.tgz#899f11d9686e5e05cb91b35d5f0e63b773cfc901"
@@ -7558,12 +7563,14 @@ postcss-pseudo-class-any-link@^6.0.0:
     postcss "^7.0.2"
     postcss-selector-parser "^5.0.0-rc.3"
 
-postcss-react-bender@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-react-bender/-/postcss-react-bender-0.1.1.tgz#5ab76b453f7c76a9d9df804c34d32e675c3ffff3"
-  integrity sha512-R3PvCs+u63TpqUotCDPB3LzYSQKPrzYywPKa9yDWb4y6JdhKkyHc6RM2z7aSDgk+jNvUaUdvMVA/vLw1cTUZ5Q==
+postcss-react-bender@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/postcss-react-bender/-/postcss-react-bender-0.2.3.tgz#8ddda0954335c14c3dc400d941750da91d6062e3"
+  integrity sha512-nSvMZ5UyDGZ3oFAUrc2vTAF88w3V+iaeGSc3QC+Uyaju0jUl3zIS2NiMm74jLry29AstI7vrKJzVIEjad5RnBQ==
   dependencies:
     css-to-react-native "^2.2.2"
+    fbjs "^0.8.5"
+    loader-utils "^1.1.0"
     lodash "^4.17.11"
     postcss "^6.0.16"
     postcss-conditionals "^2.1.0"

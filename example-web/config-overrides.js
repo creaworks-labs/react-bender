@@ -1,5 +1,12 @@
 const { getLoader, loaderNameMatches } = require("react-app-rewired");
+const multi = require('multi-loader');
 const path = require('path');
+
+function getBenderLoader() {
+  return multi(
+    'style-loader!css-loader!react-bender/support/webpack.loader.js?css',
+    'react-bender/support/webpack.loader.js?bender')
+}
 
 module.exports = {
   webpack: function(config, env) {
@@ -14,17 +21,14 @@ module.exports = {
     const bender = {
       test: extension,
       include: path.resolve(__dirname, "src"),
-      type: 'json',
       use: [
         { 
-          loader:'react-bender/support/webpack',
-          options: {
-            test:true
-          }
+          loader: getBenderLoader()
         }]
     }
 
     config.module.rules.push(bender);
+
     config.resolve.extensions.push('.bender');
 
     return config;
