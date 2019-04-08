@@ -1,4 +1,4 @@
-@import './src/styles/common.bender';
+@import 'common.bender';
 
 #View {
   @extend commonVariants;

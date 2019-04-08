@@ -11,7 +11,7 @@ export default class App extends Component {
     return (
       <Bender stylesheet={stylesheet}>
         <React.Fragment>
-          <View styleName="flexible vertical v-center h-center">
+          <View liquid styleName="vertical v-center h-center">
             <Text styleName="bold">Open up App.js to start working on your app!</Text>
             <Text styleName="italic">This is italic text</Text>
             <Text styleName="italic">This is <Text styleName="line-through">nested</Text> italic text</Text>

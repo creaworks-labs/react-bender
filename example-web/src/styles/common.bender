@@ -1,4 +1,4 @@
-@import './variables.bender';
+@import 'variables.bender';
 
 @style-def guttersMargin {
   .sm-gutter {
