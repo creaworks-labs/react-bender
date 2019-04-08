@@ -5,9 +5,9 @@
   "author": "omerduzyol",
   "license": "MIT",
   "repository": "creaworks-labs/react-bender",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "jsnext:main": "lib/index.es.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -20,7 +20,7 @@
     "lint:ts": "tslint src/**/*.{ts,tsx}",
     "lint": "yarn lint:ts && yarn lint:prettier-quite",
     "build:bender": "rollup -c .rollup.bender.js",
-    "build": "rm -rf dist && yarn build:bender --silent",
+    "build": "rm -rf lib && yarn build:bender --silent",
     "start": "yarn build:bender -w",
     "prepare": "yarn run build",
     "predeploy": "cd example-web && yarn install && yarn run build",
@@ -82,6 +82,6 @@
     "typescript": "^2.8.3"
   },
   "files": [
-    "dist"
+    "lib"
   ]
 }

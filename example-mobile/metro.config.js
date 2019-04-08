@@ -1,4 +1,5 @@
 const { getDefaultConfig } = require("metro-config");
+const { extensions } = require("react-bender/lib/support/extensions") 
 
 module.exports = (async () => {
   const {
@@ -6,10 +7,10 @@ module.exports = (async () => {
   } = await getDefaultConfig();
   return {
     transformer: {
-      babelTransformerPath: require.resolve("react-bender/dist/support/metro")
+      babelTransformerPath: require.resolve("react-bender/lib/support/metro")
     },
     resolver: {
-      sourceExts: [...sourceExts, "bender"]
+      sourceExts: [...sourceExts, 'bender']
     }
   };
 })();

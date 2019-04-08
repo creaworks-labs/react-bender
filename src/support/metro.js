@@ -1,15 +1,18 @@
 var semver = require("semver");
 
-const postcss = require('postcss')
-const postscss = require('postcss-scss')
+const postcss = require('postcss');
+const postscss = require('postcss-scss');
 const bender = require('postcss-react-bender');
+const { extensions } = require('./extensions');
 
 var upstreamTransformer = null;
 
 var reactNativeVersionString = require("react-native/package.json").version;
 var reactNativeMinorVersion = semver(reactNativeVersionString).minor;
 
-if (reactNativeMinorVersion >= 56) {
+if (reactNativeMinorVersion >= 58) {
+  upstreamTransformer = require("metro-babel-transformer");
+} else if (reactNativeMinorVersion >= 56) {
   upstreamTransformer = require("metro/src/reactNativeTransformer");
 } else if (reactNativeMinorVersion >= 52) {
   upstreamTransformer = require("metro/src/transformer");
@@ -27,8 +30,6 @@ if (reactNativeMinorVersion >= 56) {
   };
 }
 
-var styleExtensions = ["bender"]; 
-
 module.exports.transform = function(src, filename, options) {
   if (typeof src === "object") {
     // handle RN >= 0.46
@@ -43,12 +44,11 @@ module.exports.transform = function(src, filename, options) {
     }
   };
 
-  if (styleExtensions.some(ext => filename.endsWith("." + ext))) {
+  if (extensions.some(ext => filename.endsWith("." + ext))) {
     return postcss(config.plugins)
             .process(src, config.options)
             .then(result => {
               const transformed = JSON.stringify(result.bender);
-              console.log('transformed', filename, transformed);
               return upstreamTransformer.transform({
                 src: `module.exports = ${transformed}`,
                 filename,
@@ -58,5 +58,4 @@ module.exports.transform = function(src, filename, options) {
   }
 
   return upstreamTransformer.transform({ src, filename, options });
-
 };
