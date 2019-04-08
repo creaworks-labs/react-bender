@@ -95,6 +95,7 @@ interface ConnectStyleOptions {
 interface WrappableProps {
   style?: StyleProp<ImpreciseStyle>;
   styleDefinitions?: object;
+  classNames?: Array<string>;
 }
 
 type WrappableComponent = React.ComponentType<WrappableProps>;
@@ -178,11 +179,14 @@ export default function(
       extractDefinitions: boolean;
     }
 
+    type PossibleStyleOrClassNames = StyleProp<ImpreciseStyle> & {
+      __classNames__?: Array<string>
+    }
     interface BenderStates {
       styleNames?: Array<string>;
       styles: {
-        component: object;
-        definitions?: object;
+        component: PossibleStyleOrClassNames;
+        definitions?: PossibleStyleOrClassNames;
       };
       // addedProps: Object,
       childrenStyle: object;
@@ -396,12 +400,19 @@ export default function(
           ? { ref: this.setWrappedRef }
           : undefined;
 
+        const { 
+          __classNames__: classNames
+        } = styles.component
+
+        const style: StyleProp<ImpreciseStyle> = _.omit(styles.component, '__classNames__');
+
         return (
           <WrappedComponent
             {...this.props}
             {...addedProps}
-            style={styles.component}
+            style={style}
             styleDefinitions={styles.definitions}
+            classNames={classNames}
           />
         );
       }

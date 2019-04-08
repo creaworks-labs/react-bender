@@ -16,6 +16,12 @@ function isStyleVariant(propertyName: string) {
   return REGEX_ISSTYLE_VARIANT.test(propertyName);
 }
 
+
+const REGEX_ISCLASS_NAME = /^--class-/;
+function isClassName(propertyName: string) {
+  return REGEX_ISCLASS_NAME.test(propertyName);
+}
+
 /**
  * Matches any style properties that represent style rules that target the
  * component children. Those styles can have two formats, they can either
@@ -48,19 +54,30 @@ function splitStyle(style: any, extractDefinitions: boolean) {
     style,
     (result, value, key) => {
       let styleSection: any = result.componentStyle;
+      
+    
       if (isStyleVariant(key)) styleSection = result.styleVariants;
       else if (isChildStyle(key)) styleSection = result.childrenStyle;
-      else if (extractDefinitions && typeof value === "object")
+      else if (value && extractDefinitions && typeof value === "object")
         styleSection = result.componentDefinitions;
 
-      styleSection[key] = value;
+      if (isClassName(key)) {
+        const classNames = styleSection['__classNames__'] || []
+        // @ts-ignore
+        classNames.push(key.replace(REGEX_ISCLASS_NAME, ''))
+        
+        styleSection['__classNames__'] = classNames
+      } else {
+        styleSection[key] = value;
+      }
+      
       return result;
     },
     {
       componentStyle: {},
       componentDefinitions: {},
       styleVariants: {},
-      childrenStyle: {}
+      childrenStyle: {},
     }
   );
 }
@@ -150,6 +167,6 @@ export function resolveComponentStyle(
   return {
     componentStyle,
     componentDefinitions,
-    childrenStyle
+    childrenStyle,
   };
 }
