@@ -6425,12 +6425,14 @@ postcss-ordered-values@^2.1.0:
     postcss "^5.0.4"
     postcss-value-parser "^3.0.1"
 
-postcss-react-bender@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-react-bender/-/postcss-react-bender-0.1.0.tgz#f5958d2c473c95e0af569bb8ee400b7351f1d3f4"
-  integrity sha512-rMtoxsPrf7tYiFw3TA23JKDiCk5KI8nqzKhhYJ/kGk53vObJAII5zN/XPAIm0toH9XwEFn/QB/w6yqrm8/Op0w==
+postcss-react-bender@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/postcss-react-bender/-/postcss-react-bender-0.2.3.tgz#8ddda0954335c14c3dc400d941750da91d6062e3"
+  integrity sha512-nSvMZ5UyDGZ3oFAUrc2vTAF88w3V+iaeGSc3QC+Uyaju0jUl3zIS2NiMm74jLry29AstI7vrKJzVIEjad5RnBQ==
   dependencies:
     css-to-react-native "^2.2.2"
+    fbjs "^0.8.5"
+    loader-utils "^1.1.0"
     lodash "^4.17.11"
     postcss "^6.0.16"
     postcss-conditionals "^2.1.0"
