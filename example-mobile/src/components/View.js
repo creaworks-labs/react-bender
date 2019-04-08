@@ -1,4 +1,17 @@
 import { View as RNView } from 'react-native';
 import { withBenderStyles } from 'react-bender';
 
-export const View = withBenderStyles('View')(RNView)
+const mapPropsToStyleName = (ownStyleNames, props) => {
+  const styleNames = [...ownStyleNames]
+  if (props.liquid)
+    styleNames.push('flexible')
+
+  return styleNames;
+}
+
+export const View = withBenderStyles('View', {
+  // borderWidth: 20
+}, mapPropsToStyleName)(RNView);
+
+// export const View = withBenderStyles('View')(RNView)
+
