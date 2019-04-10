@@ -15,8 +15,8 @@ const mapPropsToStyleName = (ownStyleNames, props) => {
   return styleNames;
 }
 
-export default withBenderStyles('View', {
+export default withBenderStyles('View', mapPropsToStyleName, {
   // borderWidth: 20
-}, mapPropsToStyleName)(View);
+})(View);
 
 // export default withBenderStyles('View')(View);

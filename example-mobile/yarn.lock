@@ -3282,6 +3282,11 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash-es@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
+  integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
+
 lodash.map@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
@@ -4438,10 +4443,10 @@ rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 "react-bender@file:..":
-  version "0.4.0"
+  version "0.4.1"
   dependencies:
     hoist-non-react-statics "^3.2.1"
-    lodash "^4.17.11"
+    lodash-es "^4.17.11"
     postcss "^7.0.6"
     postcss-react-bender "^0.2.3"
     postcss-scss "^2.0.0"

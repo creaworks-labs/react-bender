@@ -9,9 +9,9 @@ const mapPropsToStyleName = (ownStyleNames, props) => {
   return styleNames;
 }
 
-export const View = withBenderStyles('View', {
+export const View = withBenderStyles('View', mapPropsToStyleName, {
   // borderWidth: 20
-}, mapPropsToStyleName)(RNView);
+})(RNView);
 
 // export const View = withBenderStyles('View')(RNView)
 

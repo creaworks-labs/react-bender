@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 // @ts-ignore
-import Theme, { ThemeShape } from "./Theme";
+import Theme, { ThemeShape } from "./utils/Theme";
 
 interface BenderProps {
   stylesheet: any;

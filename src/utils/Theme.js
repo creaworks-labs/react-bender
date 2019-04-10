@@ -1,7 +1,6 @@
 import { PropTypes } from "prop-types";
-import resolveIncludes from "./resolveIncludes";
+
 import mergeComponentAndThemeStyles from "./mergeComponentAndThemeStyles";
-// import normalizeStyle from "./StyleNormalizer/normalizeStyle";
 
 // Privates, ideally those should be symbols
 const THEME_STYLE = "$$bender-theme/themeStyle";
